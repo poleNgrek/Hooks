@@ -42,7 +42,12 @@ Now that we established the two most important rules (so far), we can simply imp
 ```javascript
 import { useState } from 'react'
 ```
-And then, we can simply call from within our functional component function.
+And then, we can call useState from within our functional component.
+
+```javascript
+const [enteredTitle, setEnteredTitle] = useState('');
+const [enteredAmount, setEnteredAmount] = useState('');
+```
 
 useState can be initialized with a default state and that state can be of any value(object, number, string, boolean). useState also returns something and to be more precise it returns ALWAYS an array with exactly two elements:
 1. The first element is our current state snapshot.
@@ -50,10 +55,6 @@ useState can be initialized with a default state and that state can be of any va
 
 In our project we shall call it inside the IngredientForm.js in order to manage the input for the title and the amount. Therefore in our code we will create two states, one for each of the input fields and then we will set accordingly our input element values and onChange properties.   
 ```javascript
-const [enteredTitle, setEnteredTitle] = useState('');
-const [enteredAmount, setEnteredAmount] = useState('');
-
-/******************************************************/
  <input
    type="text"
    id="title"
