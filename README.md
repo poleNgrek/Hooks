@@ -34,8 +34,8 @@ The initial structure of the components used can also be seen in the diagram bel
 
 We should probably start with the most important hook, according to me, the useState hook which allows us to manage states!
 But before we do, let's establish two very important rules (which also apply for the other hooks as well!).
-1. Hooks shall be used ONLY inside functional components or other custom hooks. 
-2. Hooks shall be used ONLY in the root level of the component. Or in simpler words, never use a hook inside nested functions.
+1. ***Hooks shall be used ONLY inside functional components or other custom hooks.*** 
+2. ***Hooks shall be used ONLY in the root level of the component.*** Or simply put, never use a hook inside nested functions.
 
 
 Now that we established the two most important rules (so far), we can simply import useState like this	:arrow_down:
@@ -74,4 +74,4 @@ Once we have created the states we set accordingly our input element values and 
 />
 ``` 
 
-Theoretically we could use only one state and set as a default value an object with a title and an amount field. However, this means that we would have to update both fields on each input since state updates using objects are not automatically merged. Of course for this small app, typing some extra lines of code wouldn't make a big difference, however in a more complex application, that could be a big inconvenience. 
+:exclamation:Theoretically we could use only one state and set as a default value an object with a title and an amount field. However, this means that we would have to update both fields on each input since state updates using objects are not automatically merged. Of course for this small app, typing some extra lines of code wouldn't make a big difference, however in a more complex application, that could be a big inconvenience. 
