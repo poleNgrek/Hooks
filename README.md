@@ -33,6 +33,45 @@ The initial structure of the components used can also be seen in the diagram bel
 ## useState
 
 We should probably start with the most important hook, according to me, the useState hook which allows us to manage states!
-We can simply import it like this: 
+But before we do, let's establish two very important rules (which also apply for the other hooks as well!).
+1. Hooks shall be used ONLY inside functional components or other custom hooks. 
+2. Hooks shall be used ONLY in the root level of the component. Or in simpler words, never use a hook inside nested functions.
+
+
+Now that we established the two most important rules (so far), we can simply import useState like this	:arrow_down:
 ```javascript
-import { useState } from 'react'```
+import { useState } from 'react'
+```
+And then, we can simply call from within our functional component function.
+
+useState can be initialized with a default state and that state can be of any value(object, number, string, boolean). useState also returns something and to be more precise it returns ALWAYS an array with exactly two elements:
+1. The first element is our current state snapshot.
+2. The second element is a function that allows us to update the state.
+
+In our project we shall call it inside the IngredientForm.js in order to manage the input for the title and the amount. Therefore in our code we will create two states, one for each of the input fields and then we will set accordingly our input element values and onChange properties.   
+```javascript
+const [enteredTitle, setEnteredTitle] = useState('');
+const [enteredAmount, setEnteredAmount] = useState('');
+
+/******************************************************/
+ <input
+   type="text"
+   id="title"
+   value={enteredTitle}
+   onChange={(event) => {
+     setEnteredTitle(event.target.value);
+   }}
+/>
+/******************************************************/
+<input
+  type="number"
+  id="amount"
+  value={enteredAmount}
+  onChange={(event) => {
+    setEnteredAmount(event.target.value);
+  }}
+/>
+```
+
+
+Theoretically we could use only one state and set as a default value an object with a title and an amount field. However, this means that we would have to update both fields on each input since state updates using objects are not automatically merged. Of course for this small app, typing some extra lines of code wouldn't make a big difference, however in a more complex application, that could be a big inconvenience. 
