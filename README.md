@@ -42,6 +42,9 @@ Now that we established the two most important rules (so far), we can simply imp
 ```javascript
 import { useState } from 'react'
 ```
+useState can be initialized with a default state and that state can be of any value(object, number, string, boolean). Calling useState returns ALWAYS an array with exactly two elements:
+1. The first element is our current state snapshot.
+2. The second element is a function that allows us to update the state.
 In our project we import useState inside the IngredientForm.js in order to manage the input state for the title and the amount.
 
 ```javascript
@@ -49,7 +52,7 @@ const [enteredTitle, setEnteredTitle] = useState('');
 const [enteredAmount, setEnteredAmount] = useState('');
 ```
 
-Once we have created the states then we will set accordingly our input element values and the onChange properties.
+Once we have created the states we set accordingly our input element values and the onChange properties.
 
 ```javascript
  <input
@@ -70,9 +73,5 @@ Once we have created the states then we will set accordingly our input element v
   }}
 />
 ``` 
-### Some notes about useState
-useState can be initialized with a default state and that state can be of any value(object, number, string, boolean). useState also returns something and to be more precise it returns ALWAYS an array with exactly two elements:
-1. The first element is our current state snapshot.
-2. The second element is a function that allows us to update the state.
 
 Theoretically we could use only one state and set as a default value an object with a title and an amount field. However, this means that we would have to update both fields on each input since state updates using objects are not automatically merged. Of course for this small app, typing some extra lines of code wouldn't make a big difference, however in a more complex application, that could be a big inconvenience. 
