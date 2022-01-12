@@ -74,4 +74,5 @@ Once we have created the states we set accordingly our input element values and 
 />
 ``` 
 
-:exclamation:Theoretically we could use only one state and set as a default value an object with a title and an amount field. However, this means that we would have to update both fields on each input since state updates using objects are not automatically merged. Of course for this small app, typing some extra lines of code wouldn't make a big difference, however in a more complex application, that could be a big inconvenience. 
+:exclamation:
+Theoretically we could use only one state and set as a default value an object with a title and an amount field. However, this means that we would have to update both fields on each input since state updates using objects are not automatically merged. Of course for this small app, typing some extra lines of code wouldn't make a big difference, however in a more complex application that could be a big inconvenience. 
