@@ -26,4 +26,13 @@ This is a very simple app that eventually will offer to the user the ability to 
 
 ![Screenshot_2022-01-11_at_12.01.42](uploads/de0bdeab50e5e8fe2cb3789c2a6c0de5/Screenshot_2022-01-11_at_12.01.42.png)
 
-LOREM IPSUM
+The initial structure of the components used can also be seen in the diagram below. The solid lines indicate that a component is being used by another component while the dotted lines indicate the usage of UI wrapper components which they usually have no functionality. It is also worth mentioning that there are some components in the project that are not shown yet in the diagram such as the IngredientsList component, simply because we are not using them yet. The diagram will be updated as we go through the tutorial.
+
+![hooks](https://user-images.githubusercontent.com/6706501/149150964-db3bf91e-314b-468b-8623-b5ea9c64769e.jpg)
+
+## useState
+
+We should probably start with the most important hook, according to me, the useState hook which allows us to manage states!
+We can simply import it like this: 
+```javascript
+import { useState } from 'react'```
