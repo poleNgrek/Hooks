@@ -76,3 +76,74 @@ Once we have created the states we set accordingly our input element values and 
 
 :exclamation:
 Theoretically we could use only one state and set as a default value an object with a title and an amount field. However, this means that we would have to update both fields on each input since state updates using objects are not automatically merged. Of course for this small app, typing some extra lines of code wouldn't make a big difference, however in a more complex application that could be a big inconvenience. 
+
+### Passing State Data Across Components
+
+Now that we went through the basics of useState, it is time to make our app a bit more usefull. We need to find a way to save the ingredient created in the form and update the list of ingredients. Once we do that, it would be also a good idea to add a way to remove an item from the list!
+
+To achieve our first goal, we could have a state in our Ingredients.js file which will be initialized as an empty array. This array will naturally keep our ingredients and will pass this array to our IngredientList component. Therefore, let's start by adding inside our Ingredients component the following piece of code.
+
+```javascript
+const [userIngredients, setUserIngredients] = useState([]);
+```
+The provided project file provides conveniently the IngredientList.js file so we can simply import it and pass our array of ingredients as props.
+
+```javascript
+return (
+    <div className="App">
+      <IngredientForm />
+
+      <section>
+        <Search />
+        <IngredientList
+          ingredients={userIngredients}
+        />
+      </section>
+    </div>
+  );
+```
+Now it would also a good idea to take a look inside the IngredientList component to see how it is structured. We can notice that it receives the props from its parent component which contains the array with the ingredients and then maps it into list items. We can also notice that props contain, or rather should contain, a function which hints us that should be also provided from the Ingredients component which should remove a list item. However, we will come back to it little later.
+
+There is also another thing that stands out, which is that extra id field assigned on each list item. This id should probably be added when our form is submitted and a new ingredient is created. Therefore we will create a new function in the Ingredients component which will be passed down to the IngredientForm through props.
+
+```javascript
+const addIngredientHandler = (ingredient) => {
+    setUserIngredients((prevIngredients) => [
+      ...prevIngredients,
+      { id: Math.random().toString(), ...ingredient },
+    ]);
+  };
+```
+In the above function notice that we are using an anonymous function to update our UserIngredients state. This way of updating the state ensures that React will use the latest copy of our ingredients array snapshot. We will discuss more about how React works behind the scenes in another blog post but for now, we are passing the previous state with the spread operator and we generate also a 'not-so-unique' id on the fly. Now we can finally pass the addIngredientHandler to our form component.
+
+```javascript
+<IngredientForm onAddIngredient={addIngredientHandler} />
+```
+and then use it inside our IngredientForm. A reminder though! Forms will try to reload the page therefore we create a small helper function which takes care of that problem and then calls our handler.
+```javascript
+const submitHandler = (event) => {
+    event.preventDefault();
+    props.onAddIngredient({ title: enteredTitle, amount: enteredAmount });
+  };
+/*****************************************/
+<form onSubmit={submitHandler}>
+```
+Notice that we are passing as an argument to our handler an object with the same field names that the IngredientList component requires.
+Now that we have access to the id field, we can create a new handler that removes an item from the rendered list! So we can go back to our Ingredients component and add the following.
+```javascript
+const removeIngredientHandler = (ingredientId) => {
+    setUserIngredients((prevIngredients) =>
+      prevIngredients.filter((ingredient) => ingredient.id !== ingredientId)
+    );
+  };
+```
+This function simply accepts an ingredient id and updates the state by using the filter function which creates a new copy of the array and uses an anonymous function to make the necessary comparison. Once we höök up this handler to our IngredientList component we are finally done with the basic logic of our app!
+```javascript
+<IngredientList
+  ingredients={userIngredients}
+  onRemoveItem={removeIngredientHandler}
+/>
+```
+
+
+
