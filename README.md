@@ -17,8 +17,7 @@ React hooks, introduced with version 16.8, unlocked the full potential of functi
 Of course this is not an official definition of hooks but it encapsulates their essence as best as possible!
 So, how many hooks are there you may ask. Well, the short answer is 9 whereof 3 are considered basic (or just mega-useful). What about the long answer then? If you noticed in the definition of hooks that I gave earlier, I mentioned something about custom hooks which means that we can have as many hooks as we see fit! But I will talk more about them in part two of this blog.
 
-So, since knowledge is of no value unless you put it into practice, we will explore hooks while working on a small project. Feel free to download the zip folder attached and run `npm install` and then `npm start` inside your project folder. [HööksSummary.zip](uploads/f8ad6ce8b0e66848ed533cb398ede9aa/HööksSummary.zip)
-
+So, since knowledge is of no value unless you put it into practice, we will explore hooks while working on a small project. Feel free to download the zip folder attached and run `npm install` and then `npm start` inside your project folder. [HööksSummary.zip](https://github.com/poleNgrek/Hooks/files/7863823/HooksSummary.zip)
 
 ### A brief description of the project
 
