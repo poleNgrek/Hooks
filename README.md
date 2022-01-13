@@ -145,7 +145,8 @@ This function simply accepts an ingredient id and updates the state by using the
 />
 ```
 Now we can see in the updated diagram how our components are linked together, which props are passed down and also the states and the handlers declared in each of them.
-![Diagram_after_UseState](https://user-images.githubusercontent.com/6706501/149245913-6df4677d-158a-4569-8851-793991aa2283.jpg)
+
+![hooks_2](https://user-images.githubusercontent.com/6706501/149251792-877ba7d6-d295-4b27-bbfa-897b0eac21a3.jpg)
 
 
 ## useEffect
