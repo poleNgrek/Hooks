@@ -151,5 +151,150 @@ Now we can see in the updated diagram how our components are linked together, wh
 
 ## useEffect
 
+Now it is time to discover another very important hook, the useEffect! Like before with useState we need to import it from React.
+```javascript
+import { useState, useEffect } from 'react';
+```
+This hook, as its name suggests, handles *side effects * in our component and it gets "activated" once the page loads for the first time. Some examples of what is considered side effect, are among others, fetching requests, using timer functions like setTimeout(), and in general tasks that have nothing to do with the rendering of the component. That's also the reason why it gets called **AFTER** the component has been rendered. It might be useful to think of useEffect as a tool which keeps rendering and side-effect logic independent from each other.
+
+The useEffect hook accepts two arguments
+1. A callback function that handles the side effect logic
+2. An optional array of external dependencies
+```javascript
+useEffect(() => {
+    // put your code here
+}, dependencies)
+```
+While it is somewhat straight-forward to understand when and how to use this hook, there are some finer details and dangers that we will discuss as we continue working with our app.
+
+### Setting up firebase
+
+We are gonna need a "dummy backend" in order to continue with the next step of this tutorial. We can use Google's firebase which is free and easy to set up. To create a new Firebase project use [this link](https://console.firebase.google.com) which leads to the firebase console.
+From there click on the 'Create a project' button and go through the simple creation steps where you will be asked to just provide a project name and the option to enable the Google Analytics for this project (which is not needed for this project). Once you are through the creation process you will be greeted with the following screen.
+
+![firebase1](uploads/e78be543564ab12c0068625fc8cd45ea/firebase1.jpg)
+
+Then, on the left sidebar under the Build option, click on the "RealTime Database" option as the red (barely visible arrow :sweat_smile:) points. Then click on the "Create Database" option, select a server closer to your location and choose the "Start in test mode" option under the security rules.
+
+After the setup is completed, you should be greeted with the following screen.
+
+![firebase2](uploads/e82e9d325da3f3b35116a4f12b2271f6/firebase2.jpg)
+
+Here we have access to the URL needed to access our database which will be created dynamically! The final step is to access the Rules tab and set the read and write values to true. 
+
+As we will be adding ingredients to the database, we will get a better understanding of how the "tables" are created. But for now we are ready to go back to coding! 
+
+### Sending http requests
+
+To avoid using other libraries, such as [Axios](https://axios-http.com/docs/intro), we will use the [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API) which is provided by our beloved javascript and built-into modern browsers. 
+
+Having said that, we can finally test whether our our form can successfully save a new ingredient in our database. To do that we will update our addIngredientHandler in the Ingredients component like this.
+
+```javascript
+  const addIngredientHandler = (ingredient) => {
+    fetch(
+      "https://react-http-dd947-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json",
+      {
+        method: "POST",
+        body: JSON.stringify(ingredient),
+        headers: { "Content-Type": "application/json" },
+      }
+    )
+      .then((response) => {
+        return response.json();
+      })
+      .then((responseData) => {
+        setUserIngredients((prevIngredients) => [
+          ...prevIngredients,
+          { id: responseData.name, ...ingredient },
+        ]);
+      });
+  };
+```
+Since this tutorial is focused on React Hooks, I will not go into how fetch and promises work in javascript but it is worthwhile mentioning two small details in our code. The first one is that we have added the "ingredients.json" at the end of the URL we use inside the fetch function. This is just a convention that Google uses to be able to identify which table to access. In this case, we letting firebase know that we want to access, or create, a new table called ingredients and that's all we care to know for now!
+
+The second detail is that we have changed the way we assign an id to the ingredient! Firebase returns a response which contains an automatically generated id which we can access by using the field "name".
+
+If you have followed the tutorial so far, you can now add a new ingredient and check our database which should look like this now.
+
+![Screenshot_2022-01-11_at_12.01.42](uploads/4c81b621941d3120b964830e505367cb/Screenshot_2022-01-11_at_12.01.42.png)
+
+### useEffect and loading data
+
+Before we demonstrate how useEffect works and why it is so valuable, let us make a small (but potentially extremely costly) experiment. We will use the fetch function, just under the useState declaration, to send a request to the database and get our list of ingredients. Then we will use the setUserIngredients function to update our state with the data we got from the request!
+
+```javascript
+fetch(
+    "https://react-http-dd947-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json"
+  )
+    .then((response) => response.json())
+    .then((responseData) => {
+      const loadedIngredients = [];
+      for (const key in responseData) {
+        loadedIngredients.push({
+          id: key,
+          title: responseData[key].title,
+          amount: responseData[key].amount,
+        });
+      }
+      setUserIngredients(loadedIngredients);
+    });
+```
+If you actually save your file and let this code run, you will end up in an infinite-loop sending countless requests to the server!:clown: You can see this happening in the network tab of your browser. But why is this happening?!
+
+Well the answer is simple. Every time we update the state of a component (by using the setUserIngredients), the component re-renders and every time our component re-renders it sends a request to the server!
+
+I can already hear you thinking that we should finally use our useEffect hook! So let's just use the syntax that we learned before and call our fetch function. Just like before under our useState declaration inside the Ingredients component, we can add this piece of code!
+
+```javascript
+    useEffect(() => {
+    fetch(
+      "https://react-http-dd947-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json"
+    )
+      .then((response) => response.json())
+      .then((responseData) => {
+        const loadedIngredients = [];
+        for (const key in responseData) {
+          loadedIngredients.push({
+            id: key,
+            title: responseData[key].title,
+            amount: responseData[key].amount,
+          });
+        }
+        setUserIngredients(loadedIngredients);
+      });
+  });
+```
+
+BOOM!! :bomb: :fire: We are once again stuck in an endless loop of requests and some network administrator is probably very annoyed at this point! But why did that happen?
+
+This time the answer is little bit longer. We mentioned earlier that useEffect accepts an optional second argument which is an array of external dependencies. By external dependencies we mean functions or variables declared outside useEffect. In our case we don't use anything external except from the setUserIngredients. However, React guarantees that anything return from useState will never change and therefore we can omit adding it in the dependency array. So what is left to be done is just to add an empty array! With an empty array, the useEffect will run only once after the component renders. 
+
+So useEffect can run endlessly if no array is provided, only once if an empty array is provided or sometimes depending on whether the provided external dependencies are updated or not.
+
+```javascript
+  useEffect(() => {
+    fetch(
+      "https://react-http-dd947-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json"
+    )
+      .then((response) => response.json())
+      .then((responseData) => {
+        const loadedIngredients = [];
+        for (const key in responseData) {
+          loadedIngredients.push({
+            id: key,
+            title: responseData[key].title,
+            amount: responseData[key].amount,
+          });
+        }
+        setUserIngredients(loadedIngredients);
+      });
+  }, []);
+```
+
+If you run the above code now (it won't crush your browser, I promise) you can see in the network tab that only one request was sent to our server and that the ingredient list is updated correctly.
+
+## useCallback
+
 ## useCallback
 
