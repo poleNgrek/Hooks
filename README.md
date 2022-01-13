@@ -148,5 +148,7 @@ Now we can see in the updated diagram how our components are linked together, wh
 ![Diagram_after_UseState](https://user-images.githubusercontent.com/6706501/149245913-6df4677d-158a-4569-8851-793991aa2283.jpg)
 
 
+## useEffect
 
+## useCallback
 
