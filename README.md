@@ -144,6 +144,9 @@ This function simply accepts an ingredient id and updates the state by using the
   onRemoveItem={removeIngredientHandler}
 />
 ```
+Now we can see in the updated diagram how our components are linked together, which props are passed down and also the states and the handlers declared in each of them.
+![Diagram_after_UseState](https://user-images.githubusercontent.com/6706501/149245913-6df4677d-158a-4569-8851-793991aa2283.jpg)
+
 
 
 
