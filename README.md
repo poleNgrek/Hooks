@@ -217,7 +217,7 @@ The second detail is that we have changed the way we assign an id to the ingredi
 
 If you have followed the tutorial so far, you can now add a new ingredient and check our database which should look like this now.
 
-![Screenshot_2022-01-11_at_12.01.42](uploads/4c81b621941d3120b964830e505367cb/Screenshot_2022-01-11_at_12.01.42.png)
+<img width="1920" alt="Screenshot 2021-11-18 at 13 19 19" src="https://user-images.githubusercontent.com/6706501/149356716-814bdd4e-6600-4729-b1f3-28d6e8ae5e10.png">
 
 ### useEffect and loading data
 
