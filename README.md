@@ -172,13 +172,13 @@ While it is somewhat straight-forward to understand when and how to use this hoo
 We are gonna need a "dummy backend" in order to continue with the next step of this tutorial. We can use Google's firebase which is free and easy to set up. To create a new Firebase project use [this link](https://console.firebase.google.com) which leads to the firebase console.
 From there click on the 'Create a project' button and go through the simple creation steps where you will be asked to just provide a project name and the option to enable the Google Analytics for this project (which is not needed for this project). Once you are through the creation process you will be greeted with the following screen.
 
-![firebase1](uploads/e78be543564ab12c0068625fc8cd45ea/firebase1.jpg)
+![firebase1](https://user-images.githubusercontent.com/6706501/149356323-5a449529-3723-4714-947a-8f9d2155e40e.jpg)
 
 Then, on the left sidebar under the Build option, click on the "RealTime Database" option as the red (barely visible arrow :sweat_smile:) points. Then click on the "Create Database" option, select a server closer to your location and choose the "Start in test mode" option under the security rules.
 
 After the setup is completed, you should be greeted with the following screen.
 
-![firebase2](uploads/e82e9d325da3f3b35116a4f12b2271f6/firebase2.jpg)
+![firebase2](https://user-images.githubusercontent.com/6706501/149356379-2d0631d9-a60f-43b5-8800-99677e602971.jpg)
 
 Here we have access to the URL needed to access our database which will be created dynamically! The final step is to access the Rules tab and set the read and write values to true. 
 
