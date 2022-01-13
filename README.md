@@ -294,6 +294,3 @@ So useEffect can run endlessly if no array is provided, only once if an empty ar
 If you run the above code now (it won't crush your browser, I promise) you can see in the network tab that only one request was sent to our server and that the ingredient list is updated correctly.
 
 ## useCallback
-
-## useCallback
-
