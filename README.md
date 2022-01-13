@@ -24,7 +24,7 @@ So, since knowledge is of no value unless you put it into practice, we will expl
 
 This is a very simple app that eventually will offer to the user the ability to insert a new ingredient through a form, search for ingredients and finally it will render a list of ingredients. Progressively some extra functionalities will be added as we progress but the main idea will not change.
 
-![Screenshot_2022-01-11_at_12.01.42](uploads/de0bdeab50e5e8fe2cb3789c2a6c0de5/Screenshot_2022-01-11_at_12.01.42.png)
+<img width="872" alt="app" src="https://user-images.githubusercontent.com/6706501/149357191-0d12b3f6-e269-4892-87c9-8d7b34091ec0.png">
 
 The initial structure of the components used can also be seen in the diagram below. The solid lines indicate that a component is being used by another component while the dotted lines indicate the usage of UI wrapper components which they usually have no functionality. It is also worth mentioning that there are some components in the project that are not shown yet in the diagram such as the IngredientsList component, simply because we are not using them yet. The diagram will be updated as we go through the tutorial.
 
