@@ -271,25 +271,7 @@ This time the answer is little bit longer. We mentioned earlier that useEffect a
 
 So useEffect can run endlessly if no array is provided, only once if an empty array is provided or sometimes depending on whether the provided external dependencies are updated or not.
 
-```javascript
-  useEffect(() => {
-    fetch(
-      "https://react-http-dd947-default-rtdb.europe-west1.firebasedatabase.app/ingredients.json"
-    )
-      .then((response) => response.json())
-      .then((responseData) => {
-        const loadedIngredients = [];
-        for (const key in responseData) {
-          loadedIngredients.push({
-            id: key,
-            title: responseData[key].title,
-            amount: responseData[key].amount,
-          });
-        }
-        setUserIngredients(loadedIngredients);
-      });
-  }, []);
-```
+
 
 If you run the above code now (it won't crush your browser, I promise) you can see in the network tab that only one request was sent to our server and that the ingredient list is updated correctly.
 
