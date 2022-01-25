@@ -216,6 +216,9 @@ The second detail is that we have changed the way we assign an id to the ingredi
 
 If you have followed the tutorial so far, you can now add a new ingredient and check our database which should look like this now.
 
+<img width="872" alt="tutorial" src="https://user-images.githubusercontent.com/6706501/150935774-62cd9425-f733-4404-a695-8ea234093317.png">
+
+
 ### useEffect and loading data
 
 Before we demonstrate how useEffect works and why it is so valuable, let us make a small (but potentially extremely costly) experiment. We will use the fetch function, just under the useState declaration, to send a request to the database and get our list of ingredients. Then we will use the setUserIngredients function to update our state with the data we got from the request!
